@@ -1,4 +1,4 @@
-package basics
+package com.sogoeslight.homework.basics
 
 import scala.annotation.tailrec
 
