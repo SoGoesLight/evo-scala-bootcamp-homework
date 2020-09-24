@@ -1,6 +1,16 @@
-# Project exclude paths
+/.idea
+
 /project/project/target/
 /project/target/
 /target/
-/target/scala-2.13/classes/
-/target/scala-2.13/test-classes/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+.lib/
+.history
+.cache
+*.class
+*.log
