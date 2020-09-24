@@ -2,8 +2,9 @@ package com.sogoeslight.homework.basics
 
 import scala.annotation.tailrec
 
-object Basics {
+// console import com.sogoeslight.homework.basics.Basics._
 
+object Basics {
   // Least common multiple
   def lcm(a: Int, b: Int): Int =
     if (a == 0 && b == 0) 0
