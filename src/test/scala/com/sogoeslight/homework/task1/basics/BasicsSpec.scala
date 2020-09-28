@@ -1,6 +1,6 @@
-package com.sogoeslight.homework.basics
+package com.sogoeslight.homework.task1.basics
 
-import com.sogoeslight.homework.basics.Basics._
+import Basics._
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers._
 

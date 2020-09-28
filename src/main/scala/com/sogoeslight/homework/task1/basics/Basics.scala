@@ -1,8 +1,6 @@
-package com.sogoeslight.homework.basics
+package com.sogoeslight.homework.task1.basics
 
 import scala.annotation.tailrec
-
-// console import com.sogoeslight.homework.basics.Basics._
 
 object Basics {
   // Least common multiple
