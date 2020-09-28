@@ -77,23 +77,25 @@ object Shape3D {
   final case class Pyramid(
       x0: Double, y0: Double, z0: Double,
       x1: Double, y1: Double, z1: Double,
-      x2: Double, y2: Double, z2: Double
+      x2: Double, y2: Double, z2: Double,
+      x3: Double, y3: Double, z3: Double,
   ) extends Shape3D {
-    override def x: Double = (x0 + x1 + x2) / 3
-    override def y: Double = (y0 + y1 + y2) / 3
-    override def z: Double = (z0 + z1 + z2) / 3
+    override def x: Double = (x0 + x1 + x2 + x3) / 4
+    override def y: Double = (y0 + y1 + y2 + y3) / 4
+    override def z: Double = (z0 + z1 + z2 + z3) / 4
 
-    override def minX: Double = x0 min x1 min x2
-    override def maxX: Double = x0 max x1 max x2
-    override def minY: Double = y0 min y1 min y2
-    override def maxY: Double = y0 max y1 max y2
-    override def minZ: Double = z0 min z1 min z2
-    override def maxZ: Double = z0 max z1 max z2
+    override def minX: Double = x0 min x1 min x2 min x3
+    override def maxX: Double = x0 max x1 max x2 max x3
+    override def minY: Double = y0 min y1 min y2 min y3
+    override def maxY: Double = y0 max y1 max y2 max y3
+    override def minZ: Double = z0 min z1 min z2 min z3
+    override def maxZ: Double = z0 max z1 max z2 max z3
 
     override def move(dx: Double, dy: Double, dz: Double): Pyramid =
       Pyramid(x0 + dx, y0 + dy, z0 + dz,
               x1 + dx, y1 + dy, z1 + dz,
-              x2 + dx, y2 + dy, z2 + dz)
+              x2 + dx, y2 + dy, z2 + dz,
+              x3 + dx, y3 + dy, z3 + dz)
 
     override def surfaceArea: Double = ??? // some unnecessary calculation here
     override def volume: Double = ??? // another "advanced math" here
@@ -134,13 +136,14 @@ object Shape3D {
 
   def describe(x: Shape3D): String =
     x match {
-      case Point(x, y, z)                     => s"Point (x = $x, y = $y, z = $z)"
-      case Line(x0, y0, x1, y1, z0, z1)       => s"Line (x0 = $x0, y0 = $y0, x1 = $x1, y1 = $y1, z0 = $z0, z1 = $z1)"
+      case Point(x, y, z)                => s"Point (x = $x, y = $y, z = $z)"
+      case Line(x0, y0, x1, y1, z0, z1)  => s"Line (x0 = $x0, y0 = $y0, x1 = $x1, y1 = $y1, z0 = $z0, z1 = $z1)"
       case Pyramid(x0, y0, z0,
                    x1, y1, z1,
-                   x2, y2, z2)                => s"Triangle (num of sides is more than 3)"
-      case Sphere(x0, y0, z0, sideSize)       => s"Sphere is pretty round"
-      //case Cube(x0, y0, z0, sideSize)         => s"Square (side length = $sideSize)"
-      case _                                  => """¯\_(ツ)_/¯""" // looks scary enough in sbt shell
+                   x2, y2, z2,
+                   x3, y3, z3)           => s"Pyramid (num of sides is more than 3)"
+      case Sphere(x0, y0, z0, sideSize)  => s"Sphere is pretty round"
+      case Cube(x0, y0, z0, sideSize)    => s"Cube (side length = $sideSize)"
+      case _                             => """¯\_(ツ)_/¯""" // looks scary enough in sbt shell
     }
 }
