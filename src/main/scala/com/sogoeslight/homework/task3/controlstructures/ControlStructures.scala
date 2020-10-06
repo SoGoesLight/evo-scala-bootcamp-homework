@@ -46,7 +46,7 @@ object ControlStructures {
 
     input match {
       case List("")                                           => Left(ErrorMessage("Empty input given")) // "case Nil" was unreachable
-      case _ :: xs if xs.map(_.toDoubleOption).contains(None) => Left(ErrorMessage("Failed parsing numbers"))
+      case _ :: xs if xs.map(_.toDoubleOption).contains(None) => Left(ErrorMessage("Invalid arguments. Failed parsing numbers"))
       case x :: xs =>
         x match {
           case _ if xs.length < 2        => Left(ErrorMessage("Not enough arguments"))
@@ -93,7 +93,6 @@ object ControlStructures {
       case Max(numbers) =>
         s"the maximum of ${numbers.map(x => formatter.format(x)).mkString(" ")} is ${formatter.format(result.value)}"
     }
-
   }
 
   def process(x: String): String = {
