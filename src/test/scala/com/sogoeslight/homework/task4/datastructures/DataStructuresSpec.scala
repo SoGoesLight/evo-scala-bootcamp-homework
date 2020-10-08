@@ -24,4 +24,11 @@ class DataStructuresSpec extends AnyFlatSpec {
       Set("d1") -> 'd'.toInt,
     )
   }
+
+  it should "be correct on example 3" in {
+    val input: Map[String, Int] = Map("a" -> 1, "h" -> 4, "j" -> 3, "b" -> 2, "c" -> 4, "i" -> 5, "d" -> 1, "e" -> 0, "f" -> 2, "g" -> 2)
+    val expected = List(Set("e") -> 0, Set("a", "d") -> 1, Set("b", "f", "g") -> 2, Set("j") -> 3, Set("c", "h") -> 4, Set("i") -> 5)
+    val obtained = sortConsideringEqualValues(input)
+    obtained shouldEqual expected
+  }
 }

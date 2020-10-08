@@ -32,8 +32,7 @@ object ControlStructures {
     final case class Max(numbers: List[Double]) extends Command
   }
 
-  sealed trait Result
-  final case class CalculatedResult(command: Command, value: Double) extends Result
+  final case class Result(command: Command, value: Double)
 
   final case class ErrorMessage(value: String) {
     override def toString: String = "Error: " + value
@@ -45,7 +44,7 @@ object ControlStructures {
     val input: List[String] = x.trim.toLowerCase().split(" ").toList
 
     input match {
-      case List("")                                           => Left(ErrorMessage("Empty input given")) // "case Nil" was unreachable
+      case List("")                                           => Left(ErrorMessage("Empty input given"))
       case _ :: xs if xs.map(_.toDoubleOption).contains(None) => Left(ErrorMessage("Invalid arguments. Failed parsing numbers"))
       case x :: xs =>
         x match {
@@ -65,20 +64,19 @@ object ControlStructures {
     import Command._
 
     x match {
-      case Divide(_, divisor) if divisor == 0 => Left(ErrorMessage("Can not divide by 0"))
-      case Divide(dividend, divisor)          => Right(CalculatedResult(x, dividend / divisor))
-      case Sum(xs)                            => Right(CalculatedResult(x, xs.sum))
-      case Average(xs)                        => Right(CalculatedResult(x, xs.sum / xs.length))
-      case Min(xs)                            => Right(CalculatedResult(x, xs.min))
-      case Max(xs)                            => Right(CalculatedResult(x, xs.max))
-      case _                                  => Left(ErrorMessage("Invalid command"))
+      case Divide(_, 0)              => Left(ErrorMessage("Can not divide by 0"))
+      case Divide(dividend, divisor) => Right(Result(x, dividend / divisor))
+      case Sum(xs)                   => Right(Result(x, xs.sum))
+      case Average(xs)               => Right(Result(x, xs.sum / xs.length))
+      case Min(xs)                   => Right(Result(x, xs.min))
+      case Max(xs)                   => Right(Result(x, xs.max))
+      case _                         => Left(ErrorMessage("Invalid command"))
     }
   }
 
-  def renderResult(x: Result): String = {
+  def renderResult(result: Result): String = {
     import Command._
 
-    val result: CalculatedResult = x.asInstanceOf[CalculatedResult]
     val formatter = new DecimalFormat("#.###")
 
     result.command match {

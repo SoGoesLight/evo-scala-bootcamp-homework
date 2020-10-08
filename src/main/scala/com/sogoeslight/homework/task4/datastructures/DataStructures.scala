@@ -21,6 +21,6 @@ object DataStructures {
       .groupBy { case (_, value) => value }
       .toList
       .map { case (k, v) => (v.keySet, k) }
-
+      .sortBy { case (_, v) => v }
   }
 }
